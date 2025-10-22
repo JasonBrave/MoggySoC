@@ -1,0 +1,6 @@
+sim
+rtl_filelist.f
+*.o
+*.elf
+*.bin
+*.hex
