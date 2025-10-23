@@ -105,7 +105,7 @@ module cpu_subsys_top (
         .scan_rst_ni()
     );
 
-    mcu_subsys_host_bridge u_host_bridge (
+    cpu_subsys_host_bridge u_host_bridge (
         // Clock and reset
         .sys_clk(sys_clk),
         .rst_n(rst_n),
@@ -140,7 +140,7 @@ module cpu_subsys_top (
         .periph_mem_rdata(periph_mem_rdata)
     );
 
-    mcu_subsys_rom u_instr_rom (
+    cpu_subsys_rom u_instr_rom (
         .clk(sys_clk),
         .rst_n(rst_n),
         .mem_valid(instr_rom_mem_valid),
@@ -151,7 +151,7 @@ module cpu_subsys_top (
         .mem_rdata(instr_rom_mem_rdata)
     );
 
-    mcu_subsys_rom u_data_rom (
+    cpu_subsys_rom u_data_rom (
         .clk(sys_clk),
         .rst_n(rst_n),
         .mem_valid(data_rom_mem_valid),
@@ -162,7 +162,7 @@ module cpu_subsys_top (
         .mem_rdata(data_rom_mem_rdata)
     );
 
-    mcu_subsys_sram u_sram (
+    cpu_subsys_sram u_sram (
         .clk(sys_clk),
         .mem_valid(sram_mem_valid),
         .mem_ready(sram_mem_ready),
@@ -172,4 +172,4 @@ module cpu_subsys_top (
         .mem_rdata(sram_mem_rdata)
     );
 
-endmodule // mcu_subsys_top
+endmodule // cpu_subsys_top

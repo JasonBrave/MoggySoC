@@ -1,4 +1,4 @@
-module mcu_subsys_host_bridge (
+module cpu_subsys_host_bridge (
     // Clock and reset
     input logic         sys_clk,
     input logic         rst_n,
@@ -105,4 +105,4 @@ module mcu_subsys_host_bridge (
 
     assign cpu_mem_ready = muxed_ready & trans_active;
 
-endmodule // mcu_subsys_host_bridge
+endmodule // cpu_subsys_host_bridge
