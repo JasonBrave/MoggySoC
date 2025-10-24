@@ -2,7 +2,7 @@ OBJS := \
     fwboot.o \
 	fwmain.o
 
-CFLAGS := -ffreestanding
+CFLAGS := -ffreestanding -march=rv32i
 
 fw.hex: fw.bin
 	./bin2hex.py

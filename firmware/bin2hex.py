@@ -3,7 +3,7 @@
 import sys
 
 def main():
-    word_remaining = 4096
+    word_remaining = 16 * 1024
 
     with open('fw.bin', mode='rb') as binfile:
         with open('fw.hex', mode='w') as hexfile:

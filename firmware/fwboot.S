@@ -5,7 +5,7 @@
 
 _start:
 	add x0, x0, x0
-	li sp, 0x40004000
+	li sp, 0x40010000
 	
 	jal fwmain
 	

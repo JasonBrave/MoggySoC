@@ -43,7 +43,9 @@ module cpu_subsys_top (
     logic [3:0]   sram_mem_wstrb;
     logic [31:0]  sram_mem_rdata;
 
-    ibex_top u_ibex_cpu_top (
+    ibex_top #(
+		.RV32M(ibex_pkg::RV32MNone)
+	) u_ibex_cpu_top (
         // Clock and reset
         .clk_i(sys_clk),
         .rst_ni(rst_n),
