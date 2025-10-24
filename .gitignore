@@ -1,5 +1,12 @@
 sim
+netlist
 rtl_filelist.f
+vivado_rtl_filelist.tcl
+vivado*.jou
+vivado*.log
+tight_setup_hold_pins.txt
+clockInfo.txt
+abc.history
 *.o
 *.elf
 *.bin

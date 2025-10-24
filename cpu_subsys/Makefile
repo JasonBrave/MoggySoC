@@ -28,4 +28,8 @@ TB_NAME := cpu_subsys_tb
 # Default UVM test name
 TEST := 
 
-include ../ip/flows/digital-ip.mk
+ifeq ($(USE_VIVADO), 1)
+include ip/xilinx-flows/fpga-subsystem.mk
+else
+include ip/flows/digital-ip.mk
+endif
