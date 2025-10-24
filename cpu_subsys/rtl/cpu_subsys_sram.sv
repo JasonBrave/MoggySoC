@@ -9,16 +9,18 @@ module cpu_subsys_sram (
 
     logic [31:0] mem [4096-1:0];
 
-    assign mem_rdata = mem[mem_addr[13:2]];
-    assign mem_ready = 1'b1;
-
     always_ff @(posedge clk) begin
         if(mem_valid) begin
             if(mem_wstrb[0]) mem[mem_addr[13:2]][7:0] <= mem_wdata[7:0];
             if(mem_wstrb[1]) mem[mem_addr[13:2]][15:8] <= mem_wdata[15:8];
             if(mem_wstrb[2]) mem[mem_addr[13:2]][23:16] <= mem_wdata[23:16];
             if(mem_wstrb[3]) mem[mem_addr[13:2]][31:24] <= mem_wdata[31:24];
-        end
+
+			mem_rdata <= mem[mem_addr[13:2]];
+			mem_ready <= 1'b1;
+        end else begin
+			mem_ready <= 1'b0;
+		end
     end
 
 endmodule // cpu_subsys_sram
