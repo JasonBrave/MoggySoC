@@ -26,7 +26,10 @@ VERIF_TOP_NAME :=
 TB_NAME := cpu_subsys_tb
 
 # Default UVM test name
-TEST := 
+TEST :=
+
+# FPGA Part Number
+FPGA_PART := xc7a200t
 
 ifeq ($(USE_VIVADO), 1)
 include ip/xilinx-flows/fpga-subsystem.mk

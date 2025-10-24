@@ -1,5 +1,5 @@
 # Initial setting
-set_part xc7a200t
+set_part $::env(FPGA_PART)
 
 # Read SystemVerilog RTL source
 source vivado_rtl_filelist.tcl
