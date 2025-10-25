@@ -2,12 +2,14 @@ sim
 netlist
 rtl_filelist.f
 vivado_rtl_filelist.tcl
+xvlog_rtl_filelist.sh
 vivado*.jou
 vivado*.log
 tight_setup_hold_pins.txt
 clockInfo.txt
 .Xil
 abc.history
+xvlog.*
 *.o
 *.elf
 *.bin

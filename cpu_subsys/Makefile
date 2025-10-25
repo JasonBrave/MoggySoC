@@ -29,6 +29,7 @@ TB_NAME := cpu_subsys_tb
 TEST :=
 
 # FPGA Part Number
+# FPGA_PART := xc7z010clg400-1
 FPGA_PART := xc7a200t
 
 ifeq ($(USE_VIVADO), 1)
