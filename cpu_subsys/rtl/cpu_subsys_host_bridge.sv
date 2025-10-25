@@ -1,54 +1,57 @@
 module cpu_subsys_host_bridge (
     // Clock and reset
-    input logic         sys_clk,
-    input logic         rst_n,
+    input logic			sys_clk,
+    input logic			rst_n,
     // CPU Memory Interface
-    input logic         cpu_mem_valid,
-    output logic        cpu_mem_ready,
-    input logic [31:0]  cpu_mem_addr,
-    input logic [31:0]  cpu_mem_wdata,
-    input logic         cpu_mem_we,
-    input logic [3:0]   cpu_mem_be,
-    output logic [31:0] cpu_mem_rdata,
+    input logic			cpu_mem_valid,
+    output logic		cpu_mem_ready,
+    input logic [31:0]	cpu_mem_addr,
+    input logic [31:0]	cpu_mem_wdata,
+    input logic			cpu_mem_we,
+    input logic [3:0]	cpu_mem_be,
+    output logic [31:0]	cpu_mem_rdata,
     // ROM Memory Interface
-    output logic        rom_mem_valid,
-    input logic         rom_mem_ready,
-    output logic [31:0] rom_mem_addr,
-    output logic [31:0] rom_mem_wdata,
-    output logic [3:0]  rom_mem_wstrb,
-    input logic [31:0]  rom_mem_rdata,
+    output logic		rom_mem_valid,
+    output logic [29:0]	rom_mem_addr,
+	output logic		rom_mem_write,
+    output logic [31:0]	rom_mem_wdata,
+    output logic [3:0]	rom_mem_wstrb,
+    input logic [31:0]	rom_mem_rdata,
+    input logic			rom_mem_ready,
     // SRAM Memory Interface
-    output logic        sram_mem_valid,
-    input logic         sram_mem_ready,
-    output logic [31:0] sram_mem_addr,
-    output logic [31:0] sram_mem_wdata,
-    output logic [3:0]  sram_mem_wstrb,
-    input logic [31:0]  sram_mem_rdata,
+    output logic		sram_mem_valid,
+    output logic [29:0]	sram_mem_addr,
+	output logic		sram_mem_write,
+    output logic [31:0]	sram_mem_wdata,
+    output logic [3:0]	sram_mem_wstrb,
+    input logic [31:0]	sram_mem_rdata,
+    input logic			sram_mem_ready,
     // Peripheral Memory Interface
-    output logic        periph_mem_valid,
-    input logic         periph_mem_ready,
-    output logic [31:0] periph_mem_addr,
-    output logic [31:0] periph_mem_wdata,
-    output logic [3:0]  periph_mem_wstrb,
-    input logic [31:0]  periph_mem_rdata
+    output logic		periph_mem_valid,
+    output logic [30:0]	periph_mem_addr,
+	output logic		periph_mem_write,
+    output logic [31:0]	periph_mem_wdata,
+    output logic [3:0]	periph_mem_wstrb,
+    input logic [31:0]	periph_mem_rdata,
+    input logic			periph_mem_ready
 );
 
-    // Write Strobe
-    logic [3:0] cpu_mem_wstrb;
-    assign cpu_mem_wstrb = cpu_mem_we ? cpu_mem_be : 4'h0;
-
     // Pass-through signals
-    assign rom_mem_addr = cpu_mem_addr;
-    assign sram_mem_addr = cpu_mem_addr;
-    assign periph_mem_addr = cpu_mem_addr;
+    assign rom_mem_addr = cpu_mem_addr[29:0];
+    assign sram_mem_addr = cpu_mem_addr[29:0];
+    assign periph_mem_addr = cpu_mem_addr[30:0];
+
+	assign rom_mem_write = cpu_mem_we;
+	assign sram_mem_write = cpu_mem_we;
+	assign periph_mem_write = cpu_mem_we;
     
     assign rom_mem_wdata = cpu_mem_wdata;
     assign sram_mem_wdata = cpu_mem_wdata;
     assign periph_mem_wdata = cpu_mem_wdata;
 
-    assign rom_mem_wstrb = cpu_mem_wstrb;
-    assign sram_mem_wstrb = cpu_mem_wstrb;
-    assign periph_mem_wstrb = cpu_mem_wstrb;
+    assign rom_mem_wstrb = cpu_mem_be;
+    assign sram_mem_wstrb = cpu_mem_be;
+    assign periph_mem_wstrb = cpu_mem_be;
 
     // Decoder
     always_comb begin

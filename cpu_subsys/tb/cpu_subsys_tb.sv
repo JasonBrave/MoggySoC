@@ -4,12 +4,13 @@ module cpu_subsys_tb;
     logic rst_n;
 
     // Peripheral memory bus
-    logic periph_mem_valid;
-	logic periph_mem_ready;
-	logic [31:0] periph_mem_addr;
+    logic		 periph_mem_valid;
+	logic [30:0] periph_mem_addr;
+	logic		 periph_mem_write;
 	logic [31:0] periph_mem_wdata;
 	logic [3:0]	 periph_mem_wstrb;
 	logic [31:0] periph_mem_rdata;
+	logic		 periph_mem_ready;
 
     cpu_subsys_top u_cpu_subsys_top (.*);
 
@@ -19,7 +20,7 @@ module cpu_subsys_tb;
 		if(~rst_n) begin
 			periph_mem_ready <= 1'b0;
 		end else begin
-			if(periph_mem_valid && (periph_mem_addr == 32'h80000004) && periph_mem_wstrb[0]) begin
+			if(periph_mem_valid && (periph_mem_addr == 31'h4) && periph_mem_wstrb[0]) begin
 				$write("%c", periph_mem_wdata[7:0]);
 			end
 

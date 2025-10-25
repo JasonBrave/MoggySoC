@@ -3,15 +3,16 @@
 
 module cpu_subsys_top (
     // Clock and resets
-    input logic         sys_clk,
-    input logic         rst_n,
+    input logic			sys_clk,
+    input logic			rst_n,
     // Peripheral memory bus
-    output logic        periph_mem_valid,
-    input logic         periph_mem_ready,
-    output logic [31:0] periph_mem_addr,
-    output logic [31:0] periph_mem_wdata,
-    output logic [3:0]  periph_mem_wstrb,
-    input logic [31:0]  periph_mem_rdata
+    output logic		periph_mem_valid,
+    output logic [30:0]	periph_mem_addr,
+	output logic		periph_mem_write,
+    output logic [31:0]	periph_mem_wdata,
+    output logic [3:0]	periph_mem_wstrb,
+    input logic [31:0]	periph_mem_rdata,
+    input logic			periph_mem_ready
 );
 
     logic         cpu_mem_valid;
@@ -23,25 +24,27 @@ module cpu_subsys_top (
     logic [31:0]  cpu_mem_rdata;
 
     logic         instr_rom_mem_valid;
-    logic         instr_rom_mem_ready;
     logic [31:0]  instr_rom_mem_addr;
     logic [31:0]  instr_rom_mem_wdata;
     logic [3:0]   instr_rom_mem_wstrb;
     logic [31:0]  instr_rom_mem_rdata;
+    logic         instr_rom_mem_ready;
 
     logic         data_rom_mem_valid;
-    logic         data_rom_mem_ready;
-    logic [31:0]  data_rom_mem_addr;
+    logic [29:0]  data_rom_mem_addr;
+	logic		  data_rom_mem_write;
     logic [31:0]  data_rom_mem_wdata;
     logic [3:0]   data_rom_mem_wstrb;
     logic [31:0]  data_rom_mem_rdata;
+    logic         data_rom_mem_ready;
 
     logic         sram_mem_valid;
-    logic         sram_mem_ready;
-    logic [31:0]  sram_mem_addr;
+    logic [29:0]  sram_mem_addr;
+	logic		  sram_mem_write;
     logic [31:0]  sram_mem_wdata;
     logic [3:0]   sram_mem_wstrb;
     logic [31:0]  sram_mem_rdata;
+    logic         sram_mem_ready;
 
     ibex_top #(
 		.RV32M(ibex_pkg::RV32MNone)
@@ -121,57 +124,61 @@ module cpu_subsys_top (
         .cpu_mem_rdata(cpu_mem_rdata),
         // ROM Memory Interface
         .rom_mem_valid(data_rom_mem_valid),
-        .rom_mem_ready(data_rom_mem_ready),
         .rom_mem_addr(data_rom_mem_addr),
+		.rom_mem_write(data_rom_mem_write),
         .rom_mem_wdata(data_rom_mem_wdata),
         .rom_mem_wstrb(data_rom_mem_wstrb),
         .rom_mem_rdata(data_rom_mem_rdata),
+        .rom_mem_ready(data_rom_mem_ready),
         // SRAM Memory Interface
         .sram_mem_valid(sram_mem_valid),
-        .sram_mem_ready(sram_mem_ready),
         .sram_mem_addr(sram_mem_addr),
+		.sram_mem_write(sram_mem_write),
         .sram_mem_wdata(sram_mem_wdata),
         .sram_mem_wstrb(sram_mem_wstrb),
         .sram_mem_rdata(sram_mem_rdata),
+        .sram_mem_ready(sram_mem_ready),
         // Peripheral Memory Interface
         .periph_mem_valid(periph_mem_valid),
-        .periph_mem_ready(periph_mem_ready),
         .periph_mem_addr(periph_mem_addr),
+		.periph_mem_write(periph_mem_write),
         .periph_mem_wdata(periph_mem_wdata),
         .periph_mem_wstrb(periph_mem_wstrb),
-        .periph_mem_rdata(periph_mem_rdata)
+        .periph_mem_rdata(periph_mem_rdata),
+        .periph_mem_ready(periph_mem_ready)
     );
 
     cpu_subsys_rom u_instr_rom (
         .clk(sys_clk),
         .rst_n(rst_n),
-        .mem_valid(instr_rom_mem_valid),
-        .mem_ready(instr_rom_mem_ready),
-        .mem_addr(instr_rom_mem_addr),
-        .mem_wdata(instr_rom_mem_wdata),
-        .mem_wstrb(instr_rom_mem_wstrb),
-        .mem_rdata(instr_rom_mem_rdata)
-    );
-
-    cpu_subsys_rom u_data_rom (
-        .clk(sys_clk),
-        .rst_n(rst_n),
-        .mem_valid(data_rom_mem_valid),
-        .mem_ready(data_rom_mem_ready),
-        .mem_addr(data_rom_mem_addr),
-        .mem_wdata(data_rom_mem_wdata),
-        .mem_wstrb(data_rom_mem_wstrb),
-        .mem_rdata(data_rom_mem_rdata)
+		// Port A
+        .mem_a_valid(instr_rom_mem_valid),
+        .mem_a_addr(instr_rom_mem_addr[29:0]),
+		.mem_a_write(1'b0),
+        .mem_a_wdata(instr_rom_mem_wdata),
+        .mem_a_wstrb(instr_rom_mem_wstrb),
+        .mem_a_rdata(instr_rom_mem_rdata),
+        .mem_a_ready(instr_rom_mem_ready),
+		// Port B
+        .mem_b_valid(data_rom_mem_valid),
+        .mem_b_addr(data_rom_mem_addr),
+		.mem_b_write(data_rom_mem_write),
+        .mem_b_wdata(data_rom_mem_wdata),
+        .mem_b_wstrb(data_rom_mem_wstrb),
+        .mem_b_rdata(data_rom_mem_rdata),
+        .mem_b_ready(data_rom_mem_ready)
     );
 
     cpu_subsys_sram u_sram (
         .clk(sys_clk),
+		.rst_n(rst_n),
         .mem_valid(sram_mem_valid),
-        .mem_ready(sram_mem_ready),
         .mem_addr(sram_mem_addr),
+		.mem_write(sram_mem_write),
         .mem_wdata(sram_mem_wdata),
         .mem_wstrb(sram_mem_wstrb),
-        .mem_rdata(sram_mem_rdata)
+        .mem_rdata(sram_mem_rdata),
+        .mem_ready(sram_mem_ready)
     );
 
 endmodule // cpu_subsys_top
