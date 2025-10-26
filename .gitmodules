@@ -4,3 +4,6 @@
 [submodule "ip/flows"]
 	path = ip/flows
 	url = https://github.com/tamarack-silicon/flows.git
+[submodule "gpio_subsys/ip/gpio_controller"]
+	path = gpio_subsys/ip/gpio_controller
+	url = https://github.com/tamarack-silicon/gpio_controller.git
