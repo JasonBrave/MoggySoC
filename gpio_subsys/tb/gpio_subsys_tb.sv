@@ -11,6 +11,14 @@ module gpio_subsys_tb;
 	logic [31:0] bus_rdata;
 	logic		 bus_ready;
 
+	logic [1:0]	 switches;
+	logic [3:0]	 push_buttons;
+	logic [3:0]	 leds;
+	logic [2:0]	 rgb_led_ld4;
+	logic [2:0]	 rgb_led_ld5;
+
+	logic		 interrupt;
+
     gpio_subsys_top u_gpio_subsys_top (.*);
 
     initial begin
