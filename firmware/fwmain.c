@@ -1,21 +1,10 @@
 #include <stdint.h>
 
-struct UARTLiteRegs {
-	volatile uint32_t rx_fifo;
-	volatile uint32_t tx_fifo;
-	volatile uint32_t stat_reg;
-	volatile uint32_t ctrl_reg;
-} *const uartlite_regs = (struct UARTLiteRegs *)0x80000000;
-
-void putstring(const char *s) {
-	while (*s) {
-		uartlite_regs->tx_fifo = *s;
-		s++;
-	}
-}
+volatile uint32_t *const led_output = (volatile uint32_t *)0x80000008;
 
 void fwmain(void) {
 	for (;;) {
-		putstring("MoggySoC\n");
+		for (int i = 0; i < 100; i++) {}
+		*led_output = *led_output + 1;
 	}
 }
