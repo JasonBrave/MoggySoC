@@ -3,6 +3,12 @@ module moggysoc_tb;
     logic sys_clk;
     logic rst_n;
 
+	logic [1:0] switches;
+	logic [3:0] push_buttons;
+	logic [3:0] leds;
+	logic [2:0] rgb_led_ld4;
+	logic [2:0] rgb_led_ld5;
+
 	moggysoc_top u_dut (.*);
 
     initial begin

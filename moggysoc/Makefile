@@ -5,10 +5,10 @@ RTL_TOP_NAME := moggysoc_top
 CSR_BLOCK_NAME := 
 
 # Design IP dependency in 'ip' folder
-RTL_IP_DEP := 
+RTL_IP_DEP := gpio_controller
 
 # Design IP dependency in same folder as current ip
-RTL_REPO_DEP := cpu_subsys gpio_subsys gpio_controller
+RTL_REPO_DEP := cpu_subsys gpio_subsys
 
 # Verification IP dependency in 'ip' folder
 VERIF_IP_DEP := 
