@@ -7,3 +7,6 @@
 [submodule "ip/ibex"]
 	path = ip/ibex
 	url = https://github.com/lowRISC/ibex.git
+[submodule "ip/uvm"]
+	path = ip/uvm
+	url = https://github.com/accellera-official/uvm-core.git

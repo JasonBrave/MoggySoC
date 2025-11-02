@@ -20,10 +20,10 @@ VERIF_REPO_DEP :=
 TB_NAME := moggysoc_tb
 
 # Testbench top level module name
-VERIF_TOP_NAME := 
+VERIF_TOP_NAME := moggysoc_verif_tb
 
 # Default UVM test name
-TEST := 
+TEST := default_test
 
 # FPGA Part Number
 FPGA_VENDOR := xilinx
