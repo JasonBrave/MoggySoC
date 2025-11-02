@@ -32,8 +32,10 @@ FPGA_PART := xc7z010clg400-1
 # FPGA_PART := xc7z020clg400-1
 # FPGA_PART := xc7a200t
 
+FPGA_TOP_LEVEL := 1
+
 ifeq ($(USE_VIVADO), 1)
-include ip/xilinx-flows/fpga-subsystem.mk
+include ip/xilinx-flows/fpga.mk
 else
 include ip/flows/fpga-subsystem.mk
 endif

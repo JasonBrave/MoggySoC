@@ -1,5 +1,6 @@
 export RTL_TOP_NAME
 export FPGA_PART
+export FPGA_TOP_LEVEL
 
 # RTL file list
 RTL_FLIST_IP_ARG := $(foreach ip, $(RTL_IP_DEP), $(addprefix -F ip/, $(addsuffix /rtl/source.f, $(ip))))
@@ -37,4 +38,4 @@ synth: vivado_rtl_filelist.tcl
 
 .PHONY: clean
 clean:
-	rm -rf vivado_rtl_filelist.tcl xvlog_rtl_filelist.sh vivado*.jou vivado*.log tight_setup_hold_pins.txt clockInfo.txt .Xil sim xvlog.* abc.history
+	rm -rf vivado_rtl_filelist.tcl xvlog_rtl_filelist.sh vivado*.jou vivado*.log tight_setup_hold_pins.txt clockInfo.txt .Xil sim xvlog.* abc.history *.bit

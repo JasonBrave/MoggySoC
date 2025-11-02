@@ -14,3 +14,4 @@ xvlog.*
 *.elf
 *.bin
 *.hex
+*.bit
