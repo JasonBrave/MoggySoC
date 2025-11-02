@@ -1,7 +1,6 @@
 module moggysoc_top (
     // Clock and resets
-	input logic		   sys_clk,
-	input logic		   rst_n,
+	input logic		   clk_125, // 125 MHz input clock
 	// External IOs
 	input logic [1:0]  switches,	 // SW0 - SW1
 	input logic [3:0]  push_buttons, // BTN0 - BTN3
@@ -9,7 +8,21 @@ module moggysoc_top (
 	output logic [2:0] rgb_led_ld4,	 // LD4
 	output logic [2:0] rgb_led_ld5	 // LD5
 );
-	
+
+	logic sys_clk; // 62.5 MHz System Clock
+
+	// FIXME: use MMCM
+	always_ff @(posedge clk_125 or negedge rst_n) begin
+		if(~rst_n) begin
+			sys_clk <= 1'b0;
+		end else begin
+			sys_clk <= ~sys_clk;
+		end
+	end
+
+	logic rst_n; // Active low async system reset
+	assign rst_n = ~push_buttons[0]; // Push buttons are active high so need to invert the signal
+
     logic		 periph_mem_valid;
     logic [30:0] periph_mem_addr;
 	logic		 periph_mem_write;

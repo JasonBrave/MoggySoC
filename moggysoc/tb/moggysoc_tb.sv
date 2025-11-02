@@ -1,7 +1,6 @@
 module moggysoc_tb;
 
-    logic sys_clk;
-    logic rst_n;
+    logic clk_125;
 
 	logic [1:0] switches;
 	logic [3:0] push_buttons;
@@ -12,18 +11,23 @@ module moggysoc_tb;
 	moggysoc_top u_dut (.*);
 
     initial begin
-        rst_n = 1'b0;
-        #100;
-        rst_n = 1'b1;
-        #100000;
+        push_buttons = 4'h0;
+        #1ms;
+		push_buttons = 4'h1;
+		#1ms;
+		push_buttons = 4'h0;
+		for(int i = 0; i < 1000; i++) begin
+			#10ms;
+			$display("Time %dms, leds = %h", i*10, leds);
+		end
         $finish;
     end
 
     initial begin
-        sys_clk = 1'b0;
+        clk_125 = 1'b0;
         forever begin
-            #10;
-            sys_clk = ~sys_clk;
+            #8ns;
+            clk_125 = ~clk_125;
         end
     end
 
