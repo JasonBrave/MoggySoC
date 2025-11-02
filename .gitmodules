@@ -1,9 +1,9 @@
-[submodule "cpu_subsys/ip/ibex"]
-	path = cpu_subsys/ip/ibex
-	url = https://github.com/lowRISC/ibex.git
 [submodule "ip/flows"]
 	path = ip/flows
 	url = https://github.com/tamarack-silicon/flows.git
 [submodule "ip/gpio_controller"]
 	path = ip/gpio_controller
 	url = https://github.com/tamarack-silicon/gpio_controller.git
+[submodule "ip/ibex"]
+	path = ip/ibex
+	url = https://github.com/lowRISC/ibex.git
