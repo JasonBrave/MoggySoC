@@ -32,9 +32,19 @@ build-tb-sim: sim/xsim.dir/work.$(TB_NAME)/xsimk
 run-tb-sim: sim/xsim.dir/work.$(TB_NAME)/xsimk
 	cd sim ; xsim -R $(TB_NAME)
 
+ifeq ($(GUI), 1)
+
+.PHONY: synth
+synth: vivado_rtl_filelist.tcl
+	vivado -mode gui -source ip/xilinx-flows/synth.tcl
+
+else
+
 .PHONY: synth
 synth: vivado_rtl_filelist.tcl
 	vivado -mode batch -source ip/xilinx-flows/synth.tcl
+
+endif
 
 .PHONY: clean
 clean:
