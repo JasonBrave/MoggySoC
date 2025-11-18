@@ -37,13 +37,15 @@ module gpio_subsys_top (
 		end
 	end
 
-	logic [255:0] gpio_out;
+	logic [63:0] gpio_out;
 
-	gpio_controller u_gpio_ctrl (
+	gpio_ctrl_top #(
+		.NUM_BANKS(2)
+	) u_gpio_ctrl (
 		.clk(sys_clk),
 		.rst_n(rst_n),
 
-		.paddr(bus_addr[10:0]),
+		.paddr(bus_addr[9:0]),
 		.pwrite(bus_write),
 		.psel(bus_valid),
 		.penable(penable),
@@ -55,13 +57,13 @@ module gpio_subsys_top (
 
 		.interrupt(interrupt),
 
-		.gpio_in_data({192'h0, {30'h0, switches}, {28'h0, push_buttons}}), // Note gpio_controller have built-in synchronizers
+		.gpio_in_data({32'h0, {26'h0, switches, push_buttons}}), // Note gpio_controller have built-in synchronizers
 		.gpio_out_data(gpio_out),
 		.gpio_out_enable()
 	);
 
-	assign leds = gpio_out[64+:4];
-	assign rgb_led_ld4 = gpio_out[96+:3];
-	assign rgb_led_ld5 = gpio_out[128+:3];
+	assign leds = gpio_out[35:32];
+	assign rgb_led_ld4 = gpio_out[42:40];
+	assign rgb_led_ld5 = gpio_out[50:48];
 
 endmodule // gpio_subsys_top
