@@ -19,30 +19,33 @@ xvlog_rtl_filelist.sh:
 
 # Simple SystemVerilog Testbench Simulation
 # Build simulation executable
-sim/xsim.dir/work.$(TB_NAME)/xsimk: xvlog_rtl_filelist.sh
+sim/xsim.dir/work.$(TB_NAME)\#work.glbl/xsimk: xvlog_rtl_filelist.sh
 	mkdir -p sim
 	bash xvlog_rtl_filelist.sh
+	xvlog $(XILINX_VIVADO)/data/verilog/src/glbl.v --work work=sim/xsim.dir/work
 	xvlog --sv $(TB_FILE) --work work=sim/xsim.dir/work
-	cd sim ; xelab $(TB_NAME)
+	cd sim ; xelab --relax -L unisims_ver $(TB_NAME) glbl
 
 .PHONY: build-tb-sim
-build-tb-sim: sim/xsim.dir/work.$(TB_NAME)/xsimk
+build-tb-sim: sim/xsim.dir/work.$(TB_NAME)\#work.glbl/xsimk
 
 .PHONY: run-tb-sim
-run-tb-sim: sim/xsim.dir/work.$(TB_NAME)/xsimk
-	cd sim ; xsim -R $(TB_NAME)
+run-tb-sim: sim/xsim.dir/work.$(TB_NAME)\#work.glbl/xsimk
+	cd sim ; xsim -R work.$(TB_NAME)\#work.glbl
 
 ifeq ($(GUI), 1)
 
-.PHONY: synth
-synth: vivado_rtl_filelist.tcl
-	vivado -mode gui -source ip/xilinx-flows/synth.tcl
+.PHONY: impl
+impl: vivado_rtl_filelist.tcl
+	mkdir -p dataout/synth dataout/impl
+	vivado -mode gui -source ip/xilinx-flows/impl.tcl
 
 else
 
-.PHONY: synth
-synth: vivado_rtl_filelist.tcl
-	vivado -mode batch -source ip/xilinx-flows/synth.tcl
+.PHONY: impl
+impl: vivado_rtl_filelist.tcl
+	mkdir -p dataout/synth dataout/impl
+	vivado -mode batch -source ip/xilinx-flows/impl.tcl
 
 endif
 

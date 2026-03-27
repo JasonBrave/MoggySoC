@@ -15,6 +15,8 @@ if { $::env(FPGA_TOP_LEVEL) == 1} {
 
 opt_design
 
+write_verilog dataout/synth/$::env(RTL_TOP_NAME).v
+
 place_design
 power_opt_design
 phys_opt_design
@@ -26,6 +28,9 @@ report_utilization
 report_timing
 report_power
 
+write_sdf dataout/impl/$::env(RTL_TOP_NAME).sdf
+write_verilog dataout/impl/$::env(RTL_TOP_NAME).v
+
 if { $::env(FPGA_TOP_LEVEL) == 1} {
-	write_bitstream $::env(RTL_TOP_NAME).bit
+	write_bitstream dataout/impl/$::env(RTL_TOP_NAME).bit
 }

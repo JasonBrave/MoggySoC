@@ -1,5 +1,5 @@
 sim
-netlist
+dataout
 rtl_filelist.f
 vivado_rtl_filelist.tcl
 xvlog_rtl_filelist.sh
