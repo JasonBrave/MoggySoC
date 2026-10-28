@@ -7,7 +7,7 @@ module cpu_subsys_top (
     input logic			rst_n,
     // Peripheral memory bus
     output logic		periph_mem_valid,
-    output logic [30:0]	periph_mem_addr,
+    output logic [31:0]	periph_mem_addr,
 	output logic		periph_mem_write,
     output logic [31:0]	periph_mem_wdata,
     output logic [3:0]	periph_mem_wstrb,
@@ -297,5 +297,13 @@ module cpu_subsys_top (
         .mem_b_rdata(instr_dtcm_bus_rdata),
         .mem_b_ready(instr_dtcm_bus_ready)
     );
+
+	assign periph_mem_valid = data_ahb_bus_valid;
+	assign periph_mem_addr = data_ahb_bus_addr;
+	assign periph_mem_write = data_ahb_bus_write;
+	assign periph_mem_wdata = data_ahb_bus_wdata;
+	assign periph_mem_wstrb = data_ahb_bus_wstrb;
+	assign data_ahb_bus_rdata = periph_mem_rdata;
+	assign data_ahb_bus_ready = periph_mem_ready;
 
 endmodule // cpu_subsys_top
