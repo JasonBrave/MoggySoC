@@ -1,4 +1,4 @@
-module cpu_subsys_data_bus_mux (
+module cpu_subsys_bus_bridge (
     // Clock and reset
     input logic			sys_clk,
     input logic			rst_n,
@@ -135,4 +135,4 @@ module cpu_subsys_data_bus_mux (
 
     assign cpu_mem_ready = muxed_ready & trans_active;
 
-endmodule // cpu_subsys_host_bridge
+endmodule // cpu_subsys_bus_bridge

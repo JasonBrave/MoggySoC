@@ -35,7 +35,7 @@
 ../ip/ibex/rtl/ibex_controller.sv
 ../ip/ibex/rtl/ibex_fetch_fifo.sv
 
-cpu_subsys_host_bridge.sv
-cpu_subsys_rom.sv
-cpu_subsys_sram.sv
+cpu_subsys_bus_bridge.sv
+cpu_subsys_flash.sv
+cpu_subsys_tcm.sv
 cpu_subsys_top.sv
