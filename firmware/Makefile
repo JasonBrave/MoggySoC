@@ -2,7 +2,7 @@ OBJS := \
     fwboot.o \
 	fwmain.o
 
-CFLAGS := -ffreestanding -march=rv32i
+CFLAGS := -ffreestanding -march=rv32i -msmall-data-limit=0
 
 fw.hex: fw.bin
 	./bin2hex.py
