@@ -2,25 +2,64 @@ ENTRY(_start)
 
 MEMORY
 {    
-    bootrom (rx)  : ORIGIN = 0x0, LENGTH = 64K
-    sram (rw) : ORIGIN = 0x40000000, LENGTH = 64K
+    flash (rwx)  : ORIGIN = 0x0, LENGTH = 256K
+    itcm (rwx) : ORIGIN = 0x00400000, LENGTH = 64K
+    dtcm (rw) : ORIGIN = 0x00600000, LENGTH = 64K
 }
 
 SECTIONS
 {
-    . = ORIGIN(bootrom);
-    .text : 
+	.text.start :
     {
+        . = ALIGN(4);
         *(.text.start)
+        . = ALIGN(4);
+    } >flash
+
+	_text_load = LOADADDR(.text);
+
+    .text :
+    {
+		. = ALIGN(4);
+		_text_begin = .;
         *(.text)
-		*(.rodata*)
-    }
-    . = ORIGIN(sram);
+		. = ALIGN(4);
+		_text_end = .;
+    } >itcm AT>flash
+
+	_rodata_load = LOADADDR(.rodata);
+
+    .rodata :
+    {
+		. = ALIGN(4);
+		_rodata_begin = .;
+		*(.rodata .srodata)
+		. = ALIGN(4);
+		_rodata_end = .;
+    } >dtcm AT>flash
+
+	_data_load = LOADADDR(.data);
+
     .data :
     {
-        *(.data)
-        *(.bss)
-    }
+		. = ALIGN(4);
+		_data_begin = .;
+		*(.data .sdata)
+		. = ALIGN(4);
+		_data_end = .;
+    } >dtcm AT>flash
+
+    .bss (NOLOAD) :
+    {
+		. = ALIGN(4);
+		_bss_begin = .;
+		*(.bss .sbss)
+		. = ALIGN(4);
+		_bss_end = .;
+    } >dtcm
+
+	_stack_top = ORIGIN(dtcm) + LENGTH(dtcm);
+
     /DISCARD/ :
     {
         *

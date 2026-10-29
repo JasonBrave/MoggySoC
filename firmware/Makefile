@@ -8,7 +8,7 @@ fw.hex: fw.bin
 	./bin2hex.py
 
 fw.bin: fw.elf
-	riscv32-elf-objcopy -O binary --only-section=.text fw.elf fw.bin
+	riscv32-elf-objcopy -O binary fw.elf fw.bin
 
 fw.elf: $(OBJS) firmware.ld
 	riscv32-elf-ld -T firmware.ld $(OBJS) -o fw.elf
