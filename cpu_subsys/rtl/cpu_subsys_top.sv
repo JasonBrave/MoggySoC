@@ -97,7 +97,9 @@ module cpu_subsys_top (
     ibex_top #(
 		.RV32E(1'b0),
 		.RV32M(ibex_pkg::RV32MSingleCycle),
-		.RegFile(ibex_pkg::RegFileFPGA)
+		.RegFile(ibex_pkg::RegFileFPGA),
+		.BranchTargetALU(1'b1),
+		.WritebackStage(1'b1)
 	) u_ibex_cpu_top (
         // Clock and reset
         .clk_i(sys_clk),

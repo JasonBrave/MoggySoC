@@ -10,7 +10,6 @@
 
 ../ip/ibex/rtl/ibex_pkg.sv
 
-../ip/ibex/syn/rtl/prim_clock_gating.v
 ../ip/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv
 ../ip/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv
 
@@ -34,6 +33,8 @@
 ../ip/ibex/rtl/ibex_decoder.sv
 ../ip/ibex/rtl/ibex_controller.sv
 ../ip/ibex/rtl/ibex_fetch_fifo.sv
+
+prim_clock_gating.v
 
 cpu_subsys_bus_bridge.sv
 cpu_subsys_flash.sv
