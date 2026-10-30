@@ -95,7 +95,6 @@ module cpu_subsys_top (
     logic         data_ahb_bus_ready;
 
     ibex_top #(
-		.BaseIsa(ibex_pkg::BaseIsaRV32I),
 		.RV32E(1'b0),
 		.RV32M(ibex_pkg::RV32MSingleCycle),
 		.RegFile(ibex_pkg::RegFileFPGA)
