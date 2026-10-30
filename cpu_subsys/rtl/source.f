@@ -16,7 +16,7 @@
 
 ../ip/ibex/rtl/ibex_top.sv
 ../ip/ibex/rtl/ibex_core.sv
-../ip/ibex/rtl/ibex_register_file_ff.sv
+../ip/ibex/rtl/ibex_register_file_fpga.sv
 ../ip/ibex/rtl/ibex_cs_registers.sv
 ../ip/ibex/rtl/ibex_pmp.sv
 ../ip/ibex/rtl/ibex_if_stage.sv

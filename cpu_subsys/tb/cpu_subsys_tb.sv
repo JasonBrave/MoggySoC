@@ -20,7 +20,7 @@ module cpu_subsys_tb;
 		if(~rst_n) begin
 			periph_mem_ready <= 1'b0;
 		end else begin
-			if(periph_mem_valid && (periph_mem_addr == 32'h4) && periph_mem_wstrb[0]) begin
+			if(periph_mem_valid && (periph_mem_addr == 32'h80000014) && periph_mem_wstrb[0]) begin
 				$write("%c", periph_mem_wdata[7:0]);
 			end
 

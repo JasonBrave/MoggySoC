@@ -44,6 +44,9 @@ module cpu_subsys_bus_bridge (
     input logic			ahb_mem_ready
 );
 
+    logic trans_active;
+	logic [31:0] cpu_mem_addr_d;
+
     // Pass-through signals
     assign flash_mem_addr = cpu_mem_addr[21:0];
     assign itcm_mem_addr = cpu_mem_addr[20:0];
@@ -95,7 +98,7 @@ module cpu_subsys_bus_bridge (
 
     // Read Mux
     always_comb begin
-        unique case (cpu_mem_addr[31:21])
+        unique case (cpu_mem_addr_d[31:21])
             11'h00: begin
                 muxed_ready = flash_mem_ready;
                 cpu_mem_rdata = flash_mem_rdata;
@@ -119,14 +122,14 @@ module cpu_subsys_bus_bridge (
         endcase // unique case (cpu_mem_addr[31:21])
     end // always_comb
 
-    // Only assert ready when there's an outstanding transaction
-    logic trans_active;
     always_ff @(posedge sys_clk or negedge rst_n) begin
         if(!rst_n) begin
             trans_active <= 1'b0;
+			cpu_mem_addr_d <= 32'h0;
         end else begin
             if(cpu_mem_valid) begin
                 trans_active <= 1'b1;
+				cpu_mem_addr_d <= cpu_mem_addr;
             end else if(muxed_ready) begin
                 trans_active <= 1'b0;
             end
