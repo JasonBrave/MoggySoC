@@ -1,5 +1,3 @@
-/* verilator lint_off UNUSEDSIGNAL */
-/* verilator lint_off PINMISSING */
 
 module cpu_subsys_top (
     // Clock and resets
@@ -31,7 +29,7 @@ module cpu_subsys_top (
     logic         instr_flash_bus_ready;
 
     logic         instr_itcm_bus_valid;
-    logic [20:0]  instr_itcm_bus_addr;
+    logic [19:0]  instr_itcm_bus_addr;
 	logic		  instr_itcm_bus_write;
     logic [31:0]  instr_itcm_bus_wdata;
     logic [3:0]   instr_itcm_bus_wstrb;
@@ -39,7 +37,7 @@ module cpu_subsys_top (
     logic         instr_itcm_bus_ready;
 
     logic         instr_dtcm_bus_valid;
-    logic [20:0]  instr_dtcm_bus_addr;
+    logic [19:0]  instr_dtcm_bus_addr;
 	logic		  instr_dtcm_bus_write;
     logic [31:0]  instr_dtcm_bus_wdata;
     logic [3:0]   instr_dtcm_bus_wstrb;
@@ -71,7 +69,7 @@ module cpu_subsys_top (
     logic         data_flash_bus_ready;
 
     logic         data_itcm_bus_valid;
-    logic [20:0]  data_itcm_bus_addr;
+    logic [19:0]  data_itcm_bus_addr;
 	logic		  data_itcm_bus_write;
     logic [31:0]  data_itcm_bus_wdata;
     logic [3:0]   data_itcm_bus_wstrb;
@@ -79,7 +77,7 @@ module cpu_subsys_top (
     logic         data_itcm_bus_ready;
 
     logic         data_dtcm_bus_valid;
-    logic [20:0]  data_dtcm_bus_addr;
+    logic [19:0]  data_dtcm_bus_addr;
 	logic		  data_dtcm_bus_write;
     logic [31:0]  data_dtcm_bus_wdata;
     logic [3:0]   data_dtcm_bus_wstrb;
@@ -96,7 +94,7 @@ module cpu_subsys_top (
 
     ibex_top #(
 		.RV32E(1'b0),
-		.RV32M(ibex_pkg::RV32MSingleCycle),
+		.RV32M(ibex_pkg::RV32MFast),
 		.RegFile(ibex_pkg::RegFileFPGA),
 		.BranchTargetALU(1'b1),
 		.WritebackStage(1'b1)

@@ -2,9 +2,9 @@ ENTRY(_start)
 
 MEMORY
 {    
-    flash (rwx)  : ORIGIN = 0x0, LENGTH = 256K
-    itcm (rwx) : ORIGIN = 0x00400000, LENGTH = 64K
-    dtcm (rw) : ORIGIN = 0x00600000, LENGTH = 64K
+    flash (rwx)  : ORIGIN = 0x0, LENGTH = 64K
+    itcm (rwx) : ORIGIN = 0x00400000, LENGTH = 16K
+    dtcm (rw) : ORIGIN = 0x00500000, LENGTH = 16K
 }
 
 SECTIONS

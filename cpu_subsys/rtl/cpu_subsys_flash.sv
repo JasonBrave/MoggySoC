@@ -11,12 +11,12 @@ module cpu_subsys_flash (
     output logic [31:0]	mem_b_rdata,
     output logic		mem_b_ready);
 
-    logic [31:0] rom [2**16-1:0];
+    logic [31:0] rom [2**14-1:0];
 
 	// Port A
     always_ff @(posedge clk) begin
         if(mem_a_valid) begin
-			mem_a_rdata <= rom[mem_a_addr[17:2]];
+			mem_a_rdata <= rom[mem_a_addr[15:2]];
 			mem_a_ready <= 1'b1;
         end else begin
 			mem_a_ready <= 1'b0;
@@ -26,7 +26,7 @@ module cpu_subsys_flash (
 	// Port B
     always_ff @(posedge clk) begin
         if(mem_b_valid) begin
-			mem_b_rdata <= rom[mem_b_addr[17:2]];
+			mem_b_rdata <= rom[mem_b_addr[15:2]];
 			mem_b_ready <= 1'b1;
         end else begin
 			mem_b_ready <= 1'b0;

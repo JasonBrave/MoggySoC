@@ -28,12 +28,13 @@ TEST :=
 # FPGA Part Number
 FPGA_VENDOR := xilinx
 FPGA_FAMILY := xc7
-FPGA_PART := xc7z010clg400-1
-# FPGA_PART := xc7z020clg400-1
-# FPGA_PART := xc7a200t
+# Nexys Video
+FPGA_PART := xc7a200tsbg484-1
+# Arty Z7-10
+#FPGA_PART := xc7z010clg400-1
 
 ifeq ($(USE_VIVADO), 1)
-include ip/xilinx-flows/fpga.mk
+include ip/xilinx-flows/fpga-subsystem.mk
 else
 include ip/flows/fpga-subsystem.mk
 endif

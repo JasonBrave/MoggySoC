@@ -20,7 +20,7 @@ module cpu_subsys_bus_bridge (
     input logic			flash_mem_ready,
     // ITCM Memory Interface
     output logic		itcm_mem_valid,
-    output logic [20:0]	itcm_mem_addr,
+    output logic [19:0]	itcm_mem_addr,
 	output logic		itcm_mem_write,
     output logic [31:0]	itcm_mem_wdata,
     output logic [3:0]	itcm_mem_wstrb,
@@ -28,7 +28,7 @@ module cpu_subsys_bus_bridge (
     input logic			itcm_mem_ready,
     // DTCM Memory Interface
     output logic		dtcm_mem_valid,
-    output logic [20:0]	dtcm_mem_addr,
+    output logic [19:0]	dtcm_mem_addr,
 	output logic		dtcm_mem_write,
     output logic [31:0]	dtcm_mem_wdata,
     output logic [3:0]	dtcm_mem_wstrb,
@@ -49,8 +49,8 @@ module cpu_subsys_bus_bridge (
 
     // Pass-through signals
     assign flash_mem_addr = cpu_mem_addr[21:0];
-    assign itcm_mem_addr = cpu_mem_addr[20:0];
-    assign dtcm_mem_addr = cpu_mem_addr[20:0];
+    assign itcm_mem_addr = cpu_mem_addr[19:0];
+    assign dtcm_mem_addr = cpu_mem_addr[19:0];
 	assign ahb_mem_addr = cpu_mem_addr;
 
 	assign flash_mem_write = cpu_mem_we;
@@ -75,17 +75,23 @@ module cpu_subsys_bus_bridge (
         dtcm_mem_valid = 1'b0;
 		ahb_mem_valid = 1'b0;
 
-        unique case (cpu_mem_addr[31:21])
-            11'h00: begin
+        unique case (cpu_mem_addr[31:20])
+            12'h0: begin
                 flash_mem_valid = cpu_mem_valid;
             end
-            11'h01: begin
+            12'h1: begin
                 flash_mem_valid = cpu_mem_valid;
             end
-            11'h02: begin
+            12'h2: begin
+                flash_mem_valid = cpu_mem_valid;
+            end
+            12'h3: begin
+                flash_mem_valid = cpu_mem_valid;
+            end
+            12'h4: begin
                 itcm_mem_valid = cpu_mem_valid;
             end
-            11'h03: begin
+            12'h5: begin
                 dtcm_mem_valid = cpu_mem_valid;
             end
             default: begin
@@ -98,20 +104,28 @@ module cpu_subsys_bus_bridge (
 
     // Read Mux
     always_comb begin
-        unique case (cpu_mem_addr_d[31:21])
-            11'h00: begin
+        unique case (cpu_mem_addr_d[31:20])
+            12'h0: begin
                 muxed_ready = flash_mem_ready;
                 cpu_mem_rdata = flash_mem_rdata;
             end
-            11'h01: begin
+            12'h1: begin
                 muxed_ready = flash_mem_ready;
                 cpu_mem_rdata = flash_mem_rdata;
             end
-            11'h02: begin
+            12'h2: begin
+                muxed_ready = flash_mem_ready;
+                cpu_mem_rdata = flash_mem_rdata;
+            end
+            12'h3: begin
+                muxed_ready = flash_mem_ready;
+                cpu_mem_rdata = flash_mem_rdata;
+            end
+            12'h4: begin
                 muxed_ready = itcm_mem_ready;
                 cpu_mem_rdata = itcm_mem_rdata;
             end
-            11'h03: begin
+            12'h5: begin
                 muxed_ready = dtcm_mem_ready;
                 cpu_mem_rdata = dtcm_mem_rdata;
             end
