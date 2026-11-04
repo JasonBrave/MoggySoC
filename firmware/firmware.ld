@@ -33,7 +33,7 @@ SECTIONS
     {
 		. = ALIGN(32);
 		_rodata_begin = .;
-		*(.rodata .srodata)
+		*(.rodata .rodata.*)
 		. = ALIGN(32);
 		_rodata_end = .;
     } >dtcm AT>flash
@@ -44,7 +44,7 @@ SECTIONS
     {
 		. = ALIGN(32);
 		_data_begin = .;
-		*(.data .sdata)
+		*(.data)
 		. = ALIGN(32);
 		_data_end = .;
     } >dtcm AT>flash
@@ -53,7 +53,7 @@ SECTIONS
     {
 		. = ALIGN(32);
 		_bss_begin = .;
-		*(.bss .sbss)
+		*(.bss)
 		. = ALIGN(32);
 		_bss_end = .;
     } >dtcm

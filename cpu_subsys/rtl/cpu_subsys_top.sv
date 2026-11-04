@@ -100,7 +100,9 @@ module cpu_subsys_top (
 		.RV32ZC(ibex_pkg::RV32Zca),
 		.RegFile(ibex_pkg::RegFileFPGA),
 		.BranchTargetALU(1'b1),
-		.WritebackStage(1'b1)
+		.WritebackStage(1'b1),
+		.CsrMvendorId(32'h12345678),
+		.CsrMimpId(32'habcdef12)
 	) u_ibex_cpu_top (
         // Clock and reset
         .clk_i(sys_clk),
