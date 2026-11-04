@@ -33,6 +33,10 @@ module cpu_subsys_flash (
 		end
     end // always_ff @ (posedge clk)
 
+`ifdef VERILATOR
+    initial $readmemh("../../../firmware/fw.hex", rom);
+`else
     initial $readmemh("../../firmware/fw.hex", rom);
+`endif
 
 endmodule // cpu_subsys_rom

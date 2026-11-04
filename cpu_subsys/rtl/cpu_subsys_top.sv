@@ -93,8 +93,11 @@ module cpu_subsys_top (
     logic         data_ahb_bus_ready;
 
     ibex_top #(
+		.BaseIsa(ibex_pkg::BaseIsaRV32I),
 		.RV32E(1'b0),
 		.RV32M(ibex_pkg::RV32MFast),
+		.RV32B(ibex_pkg::RV32BNone),
+		.RV32ZC(ibex_pkg::RV32Zca),
 		.RegFile(ibex_pkg::RegFileFPGA),
 		.BranchTargetALU(1'b1),
 		.WritebackStage(1'b1)
@@ -102,12 +105,18 @@ module cpu_subsys_top (
         // Clock and reset
         .clk_i(sys_clk),
         .rst_ni(rst_n),
-        .test_en_i(1'b0),
-        .ram_cfg_i('0),
 
-         // Configuration
+        .test_en_i(1'b0),
+		.ram_cfg_icache_tag_i('0),
+		.ram_cfg_icache_tag_o(),
+		.ram_cfg_icache_data_i('0),
+		.ram_cfg_icache_data_o(),
+
+        // Configuration
+		.cheriot_enable_i(IbexMuBiOff),
         .hart_id_i(32'h00000001),
         .boot_addr_i(32'h00000000),
+		.trvk_heap_base_addr_i('0),
 
         // Instruction memory interface
         .instr_req_o(instr_cpu_bus_valid),
@@ -127,9 +136,20 @@ module cpu_subsys_top (
         .data_addr_o(data_cpu_bus_addr),
         .data_wdata_o(data_cpu_bus_wdata),
         .data_wdata_intg_o(),
+		.data_tag_o(),
         .data_rdata_i(data_cpu_bus_rdata),
         .data_rdata_intg_i(7'h0),
+		.data_tag_i(1'b0),
         .data_err_i(1'b0),
+
+		// TRVK revocation bitmap read interface
+		.trvk_revbm_req_o(),
+		.trvk_revbm_gnt_i(1'b0),
+		.trvk_revbm_rvalid_i(1'b0),
+		.trvk_revbm_addr_o(),
+		.trvk_revbm_rdata_i('0),
+		.trvk_revbm_rdata_intg_i('0),
+		.trvk_revbm_err_i(1'b0),
 
         // Interrupt inputs
         .irq_software_i(1'b0),
@@ -139,25 +159,26 @@ module cpu_subsys_top (
         .irq_nm_i(1'b0),
 
         // Scrambling Interface
-        .scramble_key_valid_i(),
-        .scramble_key_i(),
-        .scramble_nonce_i(),
+        .scramble_key_valid_i(1'b0),
+        .scramble_key_i('0),
+        .scramble_nonce_i('0),
         .scramble_req_o(),
                      
         // Debug interface
-        .debug_req_i            (1'b0),
-        .crash_dump_o           (),
-        .double_fault_seen_o    (),
+        .debug_req_i(1'b0),
+        .crash_dump_o(),
+        .double_fault_seen_o(),
 
         // Special control signals
-        .fetch_enable_i         (ibex_pkg::IbexMuBiOn),
-        .alert_minor_o          (),
-        .alert_major_internal_o (),
-        .alert_major_bus_o      (),
-        .core_sleep_o           (),
+        .fetch_enable_i(ibex_pkg::IbexMuBiOn),
+		.mcounteren_writable_i(ibex_pkg::IbexMuBiOn),
+        .alert_minor_o(),
+        .alert_major_internal_o(),
+        .alert_major_bus_o(),
+        .core_sleep_o(),
 
         // DFT bypass controls
-        .scan_rst_ni()
+        .scan_rst_ni(1'b1)
     );
 
     cpu_subsys_bus_bridge u_instr_bus_bridge (
