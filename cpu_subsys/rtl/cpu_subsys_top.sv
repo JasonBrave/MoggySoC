@@ -115,7 +115,7 @@ module cpu_subsys_top (
 		.ram_cfg_icache_data_o(),
 
         // Configuration
-		.cheriot_enable_i(IbexMuBiOff),
+		.cheriot_enable_i(ibex_pkg::IbexMuBiOff),
         .hart_id_i(32'h00000001),
         .boot_addr_i(32'h00000000),
 		.trvk_heap_base_addr_i('0),
