@@ -15,3 +15,4 @@ xvlog.*
 *.bin
 *.hex
 *.bit
+docs/micro_architecture_specification/_build

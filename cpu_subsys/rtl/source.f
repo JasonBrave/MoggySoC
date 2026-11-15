@@ -1,22 +1,18 @@
 +incdir+../ip/ibex/vendor/lowrisc_ip/ip/prim/rtl/
 +incdir+../ip/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/
 
-../ip/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv
-../ip/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv
 ../ip/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv
-../ip/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_mubi_pkg.sv
 ../ip/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv
-../ip/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count_pkg.sv
+../ip/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv
+../ip/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_mubi_pkg.sv
+../ip/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_ram_1p_pkg.sv
+../ip/ibex/vendor/lowrisc_ip/ip/prim_xilinx/rtl/prim_buf.sv
 
 ../ip/ibex/rtl/ibex_pkg.sv
-
-../ip/ibex/syn/rtl/prim_clock_gating.v
-../ip/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv
-../ip/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv
-
+../ip/ibex/rtl/ibex_cheriot_pkg.sv
 ../ip/ibex/rtl/ibex_top.sv
 ../ip/ibex/rtl/ibex_core.sv
-../ip/ibex/rtl/ibex_register_file_ff.sv
+../ip/ibex/rtl/ibex_register_file_fpga.sv
 ../ip/ibex/rtl/ibex_cs_registers.sv
 ../ip/ibex/rtl/ibex_pmp.sv
 ../ip/ibex/rtl/ibex_if_stage.sv
@@ -35,7 +31,9 @@
 ../ip/ibex/rtl/ibex_controller.sv
 ../ip/ibex/rtl/ibex_fetch_fifo.sv
 
-cpu_subsys_host_bridge.sv
-cpu_subsys_rom.sv
-cpu_subsys_sram.sv
+prim_clock_gating.v
+
+cpu_subsys_bus_bridge.sv
+cpu_subsys_flash.sv
+cpu_subsys_tcm.sv
 cpu_subsys_top.sv

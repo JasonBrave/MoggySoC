@@ -51,4 +51,4 @@ endif
 
 .PHONY: clean
 clean:
-	rm -rf vivado_rtl_filelist.tcl xvlog_rtl_filelist.sh vivado*.jou vivado*.log tight_setup_hold_pins.txt clockInfo.txt .Xil sim xvlog.* abc.history *.bit
+	rm -rf vivado_rtl_filelist.tcl xvlog_rtl_filelist.sh vivado*.jou vivado*.log tight_setup_hold_pins.txt clockInfo.txt .Xil sim xvlog.* abc.history *.bit dataout
