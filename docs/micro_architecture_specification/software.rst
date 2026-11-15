@@ -12,11 +12,11 @@ Address Space
 
    * - Address Range
      - Description
-   * - 0x00000000 - 0x0003ffff
+   * - 0x00000000 - 0x0000ffff
      - Flash
-   * - 0x00400000 - 0x0040ffff
+   * - 0x00400000 - 0x00403fff
      - Instruction Tightly Coupled Memory (ITCM)
-   * - 0x00500000 - 0x0050ffff
+   * - 0x00500000 - 0x00503fff
      - Data Tightly Coupled Memory (DTCM)
    * - 0x00600000 - 0x00603fff
      - Interrupt Controller

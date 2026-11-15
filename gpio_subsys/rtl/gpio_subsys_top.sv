@@ -57,7 +57,7 @@ module gpio_subsys_top (
 
 		.interrupt(interrupt),
 
-		.gpio_in_data({32'h0, {26'h0, switches, push_buttons}}), // Note gpio_controller have built-in synchronizers
+		.gpio_in_data({32'h0, {26'h0, switches, push_buttons}}), // Note: gpio_controller has built-in synchronizers
 		.gpio_out_data(gpio_out),
 		.gpio_out_enable()
 	);

@@ -12,9 +12,9 @@ module moggysoc_top (
 	logic sys_clk; // 62.5 MHz System Clock
 	logic rst_n; // Active low async system reset
 
-	assign rst_n = ~push_buttons[0]; // Push buttons are active high so need to invert the signal
+	assign rst_n = ~push_buttons[0]; // Push buttons are active-high, so the signal must be inverted
 
-	// FIXME: use MMCM
+	// FIXME: use an MMCM
 	always_ff @(posedge clk_125 or negedge rst_n) begin
 		if(~rst_n) begin
 			sys_clk <= 1'b0;
