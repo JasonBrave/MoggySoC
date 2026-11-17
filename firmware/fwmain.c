@@ -26,6 +26,8 @@ uint32_t get_marchid(void);
 uint32_t get_mimpid(void);
 uint32_t get_mhartid(void);
 
+extern void main(void);
+
 void fwmain(void) {
 	uint8_t ch = 'Z';
 
@@ -38,12 +40,7 @@ void fwmain(void) {
 	printf("mimpid = %x\n", get_mimpid());
 	printf("mhartid = %x\n", get_mhartid());
 
-	for (;;) {
-		if (ch == 'Z') {
-			ch = 'A';
-		} else {
-			ch += 1;
-		}
-		putchar(ch);
-	}
+	main();
+
+	for (;;) {}
 }

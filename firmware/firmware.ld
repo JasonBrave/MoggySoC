@@ -16,18 +16,19 @@ SECTIONS
         . = ALIGN(32);
     } >flash
 
-	_text_load = LOADADDR(.text);
+	_text_load = LOADADDR(.text) + (_text_begin - ADDR(.text));
 
     .text :
     {
 		. = ALIGN(32);
 		_text_begin = .;
         *(.text)
+		*(.text.*)
 		. = ALIGN(32);
 		_text_end = .;
     } >itcm AT>flash
 
-	_rodata_load = LOADADDR(.rodata);
+	_rodata_load = LOADADDR(.rodata) + (_rodata_begin - ADDR(.rodata));
 
     .rodata :
     {
@@ -38,7 +39,7 @@ SECTIONS
 		_rodata_end = .;
     } >dtcm AT>flash
 
-	_data_load = LOADADDR(.data);
+	_data_load = LOADADDR(.data) + (_data_begin - ADDR(.data));
 
     .data :
     {
@@ -59,9 +60,4 @@ SECTIONS
     } >dtcm
 
 	_stack_top = ORIGIN(dtcm) + LENGTH(dtcm);
-
-    /DISCARD/ :
-    {
-        *
-    }
 }

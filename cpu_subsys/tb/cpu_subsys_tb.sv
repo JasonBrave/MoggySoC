@@ -28,18 +28,28 @@ module cpu_subsys_tb;
 		end
 	end
 
+	initial begin
+		string fwpath;
+		if ($value$plusargs ("FWPATH=%s", fwpath)) begin
+			$readmemh(fwpath, u_cpu_subsys_top.u_flash.rom);
+		end else begin
+			$display("+FWPATH firmware path required");
+			$finish;
+		end
+	end
+
     initial begin
         rst_n = 1'b0;
         #100;
         rst_n = 1'b1;
-        #100000;
+        #400_000000;
         $finish;
     end
 
     initial begin
         sys_clk = 1'b0;
         forever begin
-            #10;
+            #1;
             sys_clk = ~sys_clk;
         end
     end

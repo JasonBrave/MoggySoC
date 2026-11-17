@@ -10,3 +10,6 @@
 [submodule "ip/uvm"]
 	path = ip/uvm
 	url = https://github.com/accellera-official/uvm-core.git
+[submodule "firmware/coremark/coremark"]
+	path = firmware/coremark/coremark
+	url = https://github.com/eembc/coremark.git
